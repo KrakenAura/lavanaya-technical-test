@@ -58,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(Submission::class);
     }
 
+    public function approvals()
+    {
+        return $this->hasMany(Approval::class, 'approver_id');
+    }
+
     //Check if the user has a specific role.
     public function hasRole(string $role): bool
     {
