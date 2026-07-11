@@ -29,4 +29,11 @@ class Approval extends Model
             'approver_id'
         );
     }
+
+    protected function casts(): array
+    {
+        return [
+            'acted_at' => 'datetime',
+        ];
+    }
 }
