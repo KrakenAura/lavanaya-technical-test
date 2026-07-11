@@ -52,7 +52,7 @@ class SubmissionController extends Controller
 
             'amount' => $request->amount,
 
-            'status' => 'draft',
+            'status' => Submission::DRAFT,
         ]);
 
         $submission->load('category');

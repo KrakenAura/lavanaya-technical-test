@@ -67,12 +67,12 @@ class ApprovalPolicy
     public function approve(User $user, Approval $approval): bool
     {
         return $approval->approver_id === $user->id
-            && $approval->status === 'waiting';
+            && $approval->status === Approval::WAITING;
     }
 
     public function reject(User $user, Approval $approval): bool
     {
         return $approval->approver_id === $user->id
-            && $approval->status === 'waiting';
+            && $approval->status === Approval::WAITING;
     }
 }

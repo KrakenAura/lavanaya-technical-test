@@ -39,7 +39,7 @@ class SubmissionPolicy
     public function update(User $user, Submission $submission): bool
     {
         return $user->id === $submission->user_id
-            && $submission->status === 'draft';
+            && $submission->status === Submission::DRAFT;
     }
 
     /**
@@ -48,7 +48,7 @@ class SubmissionPolicy
     public function delete(User $user, Submission $submission): bool
     {
         return $user->id === $submission->user_id
-            && $submission->status === 'draft';
+            && $submission->status === Submission::DRAFT;
     }
 
     /**

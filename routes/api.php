@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\SubmissionController;
 use App\Http\Controllers\Api\V1\AuthController;
+use App\Http\Controllers\Api\V1\ApprovalController;
 
 
 Route::prefix('v1')->group(function () {
@@ -29,6 +30,16 @@ Route::prefix('v1')->group(function () {
             Route::post(
                 'submissions/{submission}/submit',
                 [SubmissionController::class, 'submit']
+            );
+
+            Route::post(
+                'approvals/{approval}/approve',
+                [ApprovalController::class, 'approve']
+            );
+
+            Route::post(
+                'approvals/{approval}/reject',
+                [ApprovalController::class, 'reject']
             );
         });
 });

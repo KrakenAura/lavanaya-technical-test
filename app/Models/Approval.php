@@ -15,6 +15,12 @@ class Approval extends Model
         'acted_at'
     ];
 
+    public const WAITING = 'waiting';
+
+    public const APPROVED = 'approved';
+
+    public const REJECTED = 'rejected';
+
 
     public function submission()
     {
