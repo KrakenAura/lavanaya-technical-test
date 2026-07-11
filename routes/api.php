@@ -25,5 +25,10 @@ Route::prefix('v1')->group(function () {
                 'submissions',
                 SubmissionController::class
             );
+
+            Route::post(
+                'submissions/{submission}/submit',
+                [SubmissionController::class, 'submit']
+            );
         });
 });

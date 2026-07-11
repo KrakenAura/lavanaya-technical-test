@@ -17,6 +17,14 @@ class Submission extends Model
         'submitted_at'
     ];
 
+    public const DRAFT = 'draft';
+
+    public const SUBMITTED = 'submitted';
+
+    public const APPROVED = 'approved';
+
+    public const REJECTED = 'rejected';
+
 
     public function user()
     {

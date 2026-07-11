@@ -9,6 +9,9 @@ use App\Models\Submission;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Resources\SubmissionResource;
+use App\Models\Approval;
+use App\Models\Role;
+
 
 class SubmissionController extends Controller
 {
@@ -60,6 +63,56 @@ class SubmissionController extends Controller
         ], 201);
     }
 
+    /**
+     * This action changes the submission status from draft to submitted
+     * and creates the first approval record for the assigned supervisor.
+     *
+     */
+    public function submit(Submission $submission)
+    {
+        $this->authorize('update', $submission);
+
+
+        if ($submission->status !== Submission::DRAFT) {
+            return response()->json([
+                'message' => 'Submission cannot be submitted',
+            ], 422);
+        }
+
+
+        $submission->update([
+            'status' => Submission::SUBMITTED,
+        ]);
+
+
+        $supervisor = Role::where(
+            'name',
+            Role::SUPERVISOR
+        )
+            ->first()
+            ->users()
+            ->first();
+
+        if (!$supervisor) {
+            return response()->json([
+                'message' => 'Supervisor not found',
+            ], 500);
+        }
+
+        Approval::create([
+            'submission_id' => $submission->id,
+            'approver_id' => $supervisor->id,
+            'level' => 1,
+            'status' => 'waiting',
+        ]);
+
+
+        return response()->json([
+            'message' => 'Submission submitted successfully',
+            'data' => $submission->load('approvals'),
+        ]);
+    }
+
 
     /**
      * Display the specified resource.
@@ -81,7 +134,7 @@ class SubmissionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSubmissionRequest $request,Submission $submission)
+    public function update(UpdateSubmissionRequest $request, Submission $submission)
     {
 
         $this->authorize('update', $submission);
