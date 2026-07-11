@@ -9,6 +9,7 @@ class Payment extends Model
     protected $fillable = [
         'submission_id',
         'finance_user_id',
+        'amount',
         'paid_at',
         'payment_method',
         'reference_number',
@@ -34,5 +35,12 @@ class Payment extends Model
             User::class,
             'finance_user_id'
         );
+    }
+    protected function casts(): array
+    {
+        return [
+            'amount' => 'integer',
+            'paid_at' => 'datetime',
+        ];
     }
 }
