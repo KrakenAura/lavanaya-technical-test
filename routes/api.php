@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\V1\SubmissionController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ApprovalController;
+use App\Http\Controllers\Api\V1\AttachmentController;
 
 
 Route::prefix('v1')->group(function () {
@@ -40,6 +41,10 @@ Route::prefix('v1')->group(function () {
             Route::post(
                 'approvals/{approval}/reject',
                 [ApprovalController::class, 'reject']
+            );
+            Route::post(
+                'submissions/{submission}/attachments',
+                [AttachmentController::class, 'store']
             );
         });
 });

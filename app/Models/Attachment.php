@@ -9,7 +9,9 @@ class Attachment extends Model
     protected $fillable = [
         'submission_id',
         'file_name',
-        'file_path'
+        'file_path',
+        'file_type',
+        'file_size'
     ];
 
 
