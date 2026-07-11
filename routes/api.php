@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\SubmissionController;
 use App\Http\Controllers\Api\V1\AuthController;
 use App\Http\Controllers\Api\V1\ApprovalController;
 use App\Http\Controllers\Api\V1\AttachmentController;
+use App\Http\Controllers\Api\V1\DashboardController;
 
 
 Route::prefix('v1')->group(function () {
@@ -49,6 +50,10 @@ Route::prefix('v1')->group(function () {
             Route::delete(
                 'attachments/{attachment}',
                 [AttachmentController::class, 'destroy']
+            );
+            Route::get(
+                'dashboard',
+                [DashboardController::class,'index']
             );
         });
 });
