@@ -7,6 +7,7 @@ use App\Models\Approval;
 use App\Models\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Services\ApprovalService;
 
 class ApprovalController extends Controller
 {
@@ -16,28 +17,17 @@ class ApprovalController extends Controller
      * The authenticated user must be assigned as the approver
      * and the approval status must be waiting.
      */
-    public function approve(Approval $approval): JsonResponse
+    public function approve(Approval $approval,ApprovalService $approvalService)
     {
         $this->authorize('approve', $approval);
 
 
-        $approval->update([
-            'status' => Approval::APPROVED,
-            'acted_at' => now(),
-        ]);
-
-
-        $approval->submission->update([
-            'status' => Submission::APPROVED,
-        ]);
+        $approvalService->approve($approval);
 
 
         return response()->json([
             'message' => 'Submission approved successfully',
-            'data' => $approval->load([
-                'submission',
-                'approver',
-            ]),
+            'data' => $approval->fresh(),
         ]);
     }
 
@@ -48,32 +38,20 @@ class ApprovalController extends Controller
      * The authenticated user must be assigned as the approver
      * and the approval status must be waiting.
      */
-    public function reject(
-        Request $request,
-        Approval $approval
-    ): JsonResponse {
-
+    public function reject(Request $request,Approval $approval,ApprovalService $approvalService)
+    {
         $this->authorize('reject', $approval);
 
 
-        $approval->update([
-            'status' => Approval::REJECTED,
-            'notes' => $request->notes,
-            'acted_at' => now(),
-        ]);
-
-
-        $approval->submission->update([
-            'status' => Submission::REJECTED,
-        ]);
+        $approvalService->reject(
+            $approval,
+            $request->notes
+        );
 
 
         return response()->json([
             'message' => 'Submission rejected successfully',
-            'data' => $approval->load([
-                'submission',
-                'approver',
-            ]),
+            'data' => $approval->fresh(),
         ]);
     }
 }

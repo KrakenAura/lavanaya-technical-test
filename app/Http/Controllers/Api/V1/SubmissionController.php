@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\SubmissionResource;
 use App\Models\Approval;
 use App\Models\Role;
+use App\Services\ApprovalService;
 
 
 class SubmissionController extends Controller
@@ -68,7 +69,7 @@ class SubmissionController extends Controller
      * and creates the first approval record for the assigned supervisor.
      *
      */
-    public function submit(Submission $submission)
+    public function submit(Submission $submission,ApprovalService $approvalService)
     {
         $this->authorize('update', $submission);
 
@@ -99,12 +100,7 @@ class SubmissionController extends Controller
             ], 500);
         }
 
-        Approval::create([
-            'submission_id' => $submission->id,
-            'approver_id' => $supervisor->id,
-            'level' => 1,
-            'status' => 'waiting',
-        ]);
+        $approvalService->createInitialApproval($submission);
 
 
         return response()->json([
