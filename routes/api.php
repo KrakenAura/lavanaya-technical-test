@@ -46,5 +46,9 @@ Route::prefix('v1')->group(function () {
                 'submissions/{submission}/attachments',
                 [AttachmentController::class, 'store']
             );
+            Route::delete(
+                'attachments/{attachment}',
+                [AttachmentController::class, 'destroy']
+            );
         });
 });

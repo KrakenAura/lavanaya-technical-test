@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Submission;
 use App\Models\Attachment;
+use Illuminate\Support\Facades\Storage;
 
 class AttachmentController extends Controller
 {
@@ -43,6 +44,32 @@ class AttachmentController extends Controller
         return response()->json([
             'message' => 'Attachment uploaded successfully',
             'data' => $attachment,
+        ]);
+    }
+
+    public function destroy(
+        Attachment $attachment
+    ) {
+        $submission = $attachment->submission;
+
+
+        abort_if(
+            $submission->status !== Submission::DRAFT &&
+                $submission->status !== Submission::SUBMITTED,
+            403,
+            'Attachment cannot be deleted after approval process started'
+        );
+
+
+        Storage::disk('public')
+            ->delete($attachment->file_path);
+
+
+        $attachment->delete();
+
+
+        return response()->json([
+            'message' => 'Attachment deleted successfully'
         ]);
     }
 }
