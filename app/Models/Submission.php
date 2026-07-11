@@ -13,6 +13,7 @@ class Submission extends Model
         'title',
         'description',
         'amount',
+        'is_po',
         'status',
         'submitted_at'
     ];
@@ -24,6 +25,10 @@ class Submission extends Model
     public const APPROVED = 'approved';
 
     public const REJECTED = 'rejected';
+
+    public const PAID = 'paid';
+
+    public const WAITING_FINANCE = 'waiting_finance';
 
 
     public function user()
@@ -56,5 +61,12 @@ class Submission extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class);
+    }
+    protected function casts(): array
+    {
+        return [
+            'amount' => 'integer',
+            'is_po' => 'boolean',
+        ];
     }
 }

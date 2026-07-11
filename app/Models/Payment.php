@@ -15,6 +15,12 @@ class Payment extends Model
         'status'
     ];
 
+    public const WAITING = 'waiting';
+
+    public const PAID = 'paid';
+
+    public const REJECTED = 'rejected';
+
 
     public function submission()
     {
