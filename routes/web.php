@@ -8,7 +8,9 @@ use App\Http\Controllers\Web\ApprovalController;
 use App\Http\Controllers\Web\PaymentController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return auth()->check()
+        ? redirect()->route('web.dashboard')
+        : redirect()->route('login');
 });
 
 Route::middleware(['auth', 'verified'])
