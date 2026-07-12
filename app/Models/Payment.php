@@ -11,11 +11,9 @@ class Payment extends Model
         'finance_user_id',
         'amount',
         'paid_at',
-        'payment_method',
-        'reference_number',
-        'status'
+        'rejection_notes',
+        'status',
     ];
-
     public const WAITING = 'waiting';
 
     public const PAID = 'paid';

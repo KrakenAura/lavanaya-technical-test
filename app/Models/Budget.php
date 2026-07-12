@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Budget extends Model
 {
@@ -10,14 +11,19 @@ class Budget extends Model
         'category_id',
         'period',
         'amount',
-        'used_amount'
+        'used_amount',
     ];
 
+    protected $casts = [
+        'amount' => 'integer',
+        'used_amount' => 'integer',
+    ];
 
-    public function category()
+    public function category(): BelongsTo
     {
         return $this->belongsTo(
-            ExpenseCategory::class
+            ExpenseCategory::class,
+            'category_id'
         );
     }
 }

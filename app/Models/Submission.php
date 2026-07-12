@@ -22,13 +22,22 @@ class Submission extends Model
 
     public const SUBMITTED = 'submitted';
 
-    public const APPROVED = 'approved';
+    public const WAITING_SPV_APPROVAL =
+    'waiting_spv_approval';
 
-    public const REJECTED = 'rejected';
+    public const WAITING_MANAGER_APPROVAL =
+    'waiting_manager_approval';
+
+    public const WAITING_DIRECTOR_APPROVAL =
+    'waiting_director_approval';
+
+    public const WAITING_FINANCE =
+    'waiting_finance';
 
     public const PAID = 'paid';
 
-    public const WAITING_FINANCE = 'waiting_finance';
+    public const REJECTED = 'rejected';
+
 
 
     public function user()
@@ -67,6 +76,7 @@ class Submission extends Model
         return [
             'amount' => 'integer',
             'is_po' => 'boolean',
+            'submitted_at' => 'datetime',
         ];
     }
 }
