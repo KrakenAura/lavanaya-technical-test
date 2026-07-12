@@ -1,59 +1,549 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Lavanaya Expense Approval System
+
+> Technical Test – IT Developer
+
+Sistem Expense Approval berbasis web yang dibangun menggunakan **Laravel 12** untuk mengelola proses pengajuan biaya operasional perusahaan dengan alur approval bertingkat berdasarkan nominal transaksi dan jenis Purchase Order (PO).
+
+---
+
+# 📸 Tampilan Aplikasi
+
+## Login
 
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <img src="docs/login.png" alt="Login" width="900">
 </p>
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Dashboard
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<p align="center">
+    <img src="docs/dashboard.png" alt="Dashboard" width="900">
+</p>
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## My Submission
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+<p align="center">
+    <img src="docs/submission.png" alt="Submission" width="900">
+</p>
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## Approval Detail
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+<p align="center">
+    <img src="docs/approval.png" alt="Approval" width="900">
+</p>
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## Finance Payment
 
-## Contributing
+<p align="center">
+    <img src="docs/finance.png" alt="Finance" width="900">
+</p>
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+# 📌 Fitur Utama
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Authentication
 
-## Security Vulnerabilities
+- Login
+- Logout
+- Role Based Authentication
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## Submission
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Staff dapat:
+
+- Membuat submission
+- Mengubah draft submission
+- Menghapus draft submission
+- Submit expense
+- Upload attachment
+- Melihat riwayat submission
+
+---
+
+## Approval Workflow
+
+Workflow approval mengikuti business rule berdasarkan nominal transaksi.
+
+### Purchase Order (PO)
+
+```
+Staff
+   │
+   ▼
+Director
+   │
+   ▼
+Finance
+```
+
+---
+
+### Non Purchase Order
+
+#### ≤ Rp5.000.000
+
+```
+Staff
+   │
+   ▼
+Supervisor
+   │
+   ▼
+Finance
+```
+
+---
+
+#### > Rp5.000.000
+
+```
+Staff
+   │
+   ▼
+Supervisor
+   │
+   ▼
+Manager
+   │
+   ▼
+Finance
+```
+
+---
+
+#### > Rp10.000.000
+
+```
+Staff
+   │
+   ▼
+Supervisor
+   │
+   ▼
+Manager
+   │
+   ▼
+Director
+   │
+   ▼
+Finance
+```
+
+---
+
+## Finance
+
+Finance dapat:
+
+- Melihat Payment Queue
+- Melakukan Budget Validation
+- Process Payment
+- Reject Payment beserta alasan penolakan
+
+Budget akan otomatis berkurang setelah payment berhasil diproses.
+
+---
+
+## Dashboard
+
+Dashboard berbeda untuk setiap role:
+
+- Staff
+- Supervisor
+- Manager
+- Director
+- Finance
+
+Statistik ditampilkan secara realtime berdasarkan data pada database.
+
+---
+
+# ✨ Additional Features
+
+Fitur tambahan yang diimplementasikan di luar requirement utama:
+
+- REST API menggunakan Laravel Sanctum
+- Dashboard berdasarkan Role
+- Budget Validation sebelum pembayaran
+- Upload Attachment
+- Timeline Approval
+- Toast Notification
+- Responsive Layout
+- Status Badge
+- Service Layer Architecture
+- Business Logic Separation
+- RESTful API Resource
+
+---
+
+# 🛠 Tech Stack
+
+| Technology      | Version |
+| --------------- | ------- |
+| PHP             | 8.2+    |
+| Laravel         | 12      |
+| MySQL           | 8       |
+| Laravel Sanctum | Latest  |
+| Bootstrap       | 5       |
+| Argon Dashboard | 2       |
+| Blade           | Latest  |
+
+---
+
+# 🚀 Cara Instalasi
+
+## Clone Repository
+
+```bash
+git clone https://github.com/KrakenAura/lavanaya-technical-test
+```
+
+Masuk ke folder project
+
+```bash
+cd lavanaya-technical-test
+```
+
+---
+
+## Install Dependency
+
+```bash
+composer install
+```
+
+---
+
+## Copy Environment
+
+```bash
+cp .env.example .env
+```
+
+Windows
+
+```bash
+copy .env.example .env
+```
+
+---
+
+## Generate Key
+
+```bash
+php artisan key:generate
+```
+
+---
+
+## Konfigurasi Database
+
+Atur file `.env`
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=lavanaya
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+---
+
+## Jalankan Migration & Seeder
+
+```bash
+php artisan migrate --seed
+```
+
+---
+
+## Storage Link
+
+```bash
+php artisan storage:link
+```
+
+## Build Asset
+
+### Development
+
+```bash
+npm run dev
+```
+
+atau
+
+### Production
+
+```bash
+npm run build
+```
+
+---
+
+## Menjalankan Aplikasi
+
+```bash
+php artisan serve
+```
+
+Aplikasi dapat diakses melalui
+
+```
+http://127.0.0.1:8000
+```
+
+---
+
+# 🗄 Struktur Database
+
+Tabel utama:
+
+```
+users
+roles
+expense_categories
+budgets
+submissions
+attachments
+approvals
+payments
+```
+
+---
+
+# 👤 Akun Login Testing
+
+## Staff
+
+Email
+
+```
+staff@test.com
+```
+
+Password
+
+```
+P@ssw0rd123!
+```
+
+---
+
+## Supervisor
+
+Email
+
+```
+spv@test.com
+```
+
+Password
+
+```
+P@ssw0rd123!
+```
+
+---
+
+## Manager
+
+Email
+
+```
+manager@test.com
+```
+
+Password
+
+```
+P@ssw0rd123!
+```
+
+---
+
+## Director
+
+Email
+
+```
+director@test.com
+```
+
+Password
+
+```
+P@ssw0rd123!
+```
+
+---
+
+## Finance
+
+Email
+
+```
+finance@test.com
+```
+
+Password
+
+```
+P@ssw0rd123!
+```
+
+---
+
+# 🔄 Workflow Sistem
+
+```text
+Draft Submission
+        │
+        ▼
+Submit
+        │
+        ▼
+Approval Workflow
+        │
+        ▼
+Waiting Finance
+        │
+        ▼
+Budget Validation
+        │
+        ▼
+Process Payment
+        │
+        ▼
+Paid
+```
+
+Submission dapat ditolak pada setiap tahapan Approval maupun pada proses Finance.
+
+---
+
+# 🔌 REST API
+
+REST API diimplementasikan sebagai **additional feature** menggunakan Laravel Sanctum.
+
+## Authentication
+
+```
+POST /api/v1/login
+POST /api/v1/logout
+```
+
+---
+
+## Submission
+
+```
+GET     /api/v1/submissions
+POST    /api/v1/submissions
+GET     /api/v1/submissions/{submission}
+PUT     /api/v1/submissions/{submission}
+DELETE  /api/v1/submissions/{submission}
+POST    /api/v1/submissions/{submission}/submit
+```
+
+---
+
+## Approval
+
+```
+POST /api/v1/approvals/{approval}/approve
+POST /api/v1/approvals/{approval}/reject
+```
+
+---
+
+## Attachment
+
+```
+POST   /api/v1/submissions/{submission}/attachments
+DELETE /api/v1/attachments/{attachment}
+```
+
+---
+
+## Dashboard
+
+```
+GET /api/v1/dashboard
+```
+
+> Modul Finance saat ini diimplementasikan melalui Web Interface.
+
+---
+
+# 📂 Struktur Project
+
+```
+app
+├── Http
+│   ├── Controllers
+│   │   ├── Api
+│   │   └── Web
+│   ├── Middleware
+│   └── Requests
+│
+├── Models
+├── Policies
+├── Services
+
+database
+├── factories
+├── migrations
+└── seeders
+
+resources
+├── views
+├── components
+
+routes
+├── web.php
+└── api.php
+```
+
+---
+
+# 📋 Requirement yang Diimplementasikan
+
+✅ Authentication
+
+✅ Expense Submission
+
+✅ Multi Level Approval
+
+✅ Finance Payment
+
+✅ Budget Validation
+
+✅ Role Based Authorization
+
+✅ Dashboard
+
+✅ Attachment Upload
+
+✅ REST API
+
+---
+
+# 👨‍💻 Author
+
+**Abdul Karim**
+
+Technical Test – IT Developer
